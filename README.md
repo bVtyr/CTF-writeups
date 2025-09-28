@@ -1,8 +1,7 @@
 # Intergalactic Webhook Service — Writeup
 
 **Challenge:** Intergalactic Webhook Service (SunShineCTF)  
-**Author:** kuldbatyr / tralala  
-**Status:** solved — получен флаг
+
 
 ## TL;DR
 Сервис блокирует явные локальные хосты (127.0.0.1, localhost). Обход: домен с `A → публичный IP` (чтобы пройти проверку), `AAAA → ::1` (loopback). Сервис считает хост публичным, получает редирект и конечный запрос попадает на `127.0.0.1:5001/flag` — флаг возвращён.
@@ -50,13 +49,3 @@ python3 poC/redirect_server.py
 ```json
 {"response":"sun{dns_r3blnd1ng_1s_sup3r_c00l!_ff4bd67cd1}","status":200}
 ```
-
-## Репо (рекомендуется)
-```
-README.md
-poC/redirect_server.py
-screenshots/
-DISCLOSURE.md
-```
-
-> Только для CTF / лаборатории.
