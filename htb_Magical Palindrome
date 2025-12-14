@@ -1,0 +1,78 @@
+# HTB Challenge: **web_magical_palindrome** — Write-up
+
+## TL;DR
+Уязвимость в **type coercion**: вместо строки можно отправить **объект** с “фейковым” `length`. Это обходит проверку `length < 1000` и лимит `nginx client_max_body_size 75`, заставляя функцию принять payload как “палиндром” и вернуть флаг.
+
+---
+
+## Challenge Overview
+Сервис принимает JSON, достаёт поле `palindrome` и проверяет, является ли оно палиндромом.  
+Сверху стоит `nginx`, который режет большие запросы:
+
+- **`client_max_body_size 75;`**
+
+По задумке это должно мешать отправить строку длиной 1000+.
+
+---
+
+## Vulnerable Logic (simplified)
+```js
+function isPalindrome(string) {
+  if (string.length < 1000) return false;
+
+  const reverse = Array(string.length)
+    .fill(0)
+    .map((_, i) => string[string.length - i - 1])
+    .join("");
+
+  return string === reverse;
+}
+Root Cause
+1) Обход проверки length < 1000
+
+string.length < 1000 запускает приведение типов.
+
+Если length = {}, то:
+
+{} при сравнении превращается в NaN
+
+NaN < 1000 → false
+
+То есть условие не срабатывает, и мы “проходим” лимит, не отправляя огромную строку.
+
+2) Управляем тем, что попадёт в reverse
+
+Ключевой момент — Array(string.length):
+
+если string.length не число, Array(nonNumber) создаёт массив длины 1
+
+значит .map() выполнится один раз
+
+выражение string.length - i - 1 при length = {} даёт NaN
+
+доступ string[NaN] в JS равен string["NaN"]
+
+Итог: reverse становится значением поля "NaN" внутри объекта.
+
+Exploit
+
+Нам нужно:
+
+обойти проверку длины
+
+заставить реверс вернуть контролируемую строку
+
+уложиться в 75 байт
+
+Минимальный payload:
+
+{"palindrome":{"length":{},"0":"x","NaN":"x"}}
+
+
+Что делает каждое поле:
+
+"length":{} → ломает числовую проверку (NaN < 1000 = false)
+
+"0":"x" → полезно для логики палиндрома (первый символ)
+
+"NaN":"x" → именно это будет прочитано как string["NaN"] при сборке reverse
