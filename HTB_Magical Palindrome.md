@@ -13,23 +13,6 @@
 - управлять тем, как собирается `reverse`,
 - уложиться в лимит **75 байт**.
 
----
-
-## Ключевая логика (упрощённо)
-```js
-function isPalindrome(string) {
-  if (string.length < 1000) return false;
-
-  const reverse = Array(string.length)
-    .fill(0)
-    .map((_, i) => string[string.length - i - 1])
-    .join("");
-
-  return string === reverse;
-}
-```
-
----
 
 ## Причина уязвимости
 ### 1) Обход проверки длины
@@ -57,9 +40,5 @@ function isPalindrome(string) {
 
 ---
 
-## Запрос (curl)
-```bash
-curl -s -X POST 'http://<HOST>/'   -H 'Content-Type: application/json'   --data '{"palindrome":{"length":{},"0":"x","NaN":"x"}}'
-```
+<img width="617" height="128" alt="image" src="https://github.com/user-attachments/assets/bffa3e30-3763-4a11-95a1-99460f55b173" />
 
-Ожидаемый результат: сервер отвечает приветствием и флагом `HTB{...}`.
