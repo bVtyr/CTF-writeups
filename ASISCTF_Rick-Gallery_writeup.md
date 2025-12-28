@@ -10,7 +10,7 @@
 
 ---
 
-## Анализ исходников (важное)
+## Анализ исходников
 
 ### `index.php`
 
@@ -71,11 +71,13 @@ echo base64_encode("$data");
 ```
 /tmp/flag.txt
 ```
+<img width="1882" height="322" alt="image" src="https://github.com/user-attachments/assets/3e73a90a-ce94-421f-8512-441ddc3e8c87" />
 
 
 Декодируем base64 и получаем флаг:
 
 
+<img width="364" height="36" alt="image" src="https://github.com/user-attachments/assets/1dd06ba2-29d4-42fb-ab23-bc8ee70c19d1" />
 
 ---
 
