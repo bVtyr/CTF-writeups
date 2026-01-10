@@ -66,4 +66,5 @@ Jinja:
 `#` комментирует остаток исходного SQL.
 
 ### 3) Флаг
+<img width="1280" height="585" alt="image" src="https://github.com/user-attachments/assets/b8e6cb11-aacd-44a6-bb17-cfb756f12721" />
 
