@@ -79,6 +79,7 @@ HTML читается как строка, в неё подставляется 
 
 ## Решение
 
+<img width="996" height="372" alt="image" src="https://github.com/user-attachments/assets/6a0b7f59-9252-4239-977f-57aaa9b5d907" />
 
 
 Флаг появляется в HTML на странице `/home` (в приветствии).
