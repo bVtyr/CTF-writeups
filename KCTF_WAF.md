@@ -67,6 +67,8 @@ ln -s .. "{.}"
 ```
 
 Сервер отдаёт флаг:
+<img width="710" height="147" alt="image" src="https://github.com/user-attachments/assets/1292640b-7669-40ca-bdc1-ee84405111da" />
+
 
 ```
 KCTF{7fdbbcd6c3cee0ae65c5ca327c14a25f6e473d1c}
