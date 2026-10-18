@@ -6,6 +6,7 @@
 
 https://en.wikipedia.org/wiki/Andrew_Prahlow
 
+<img width="1458" height="812" alt="image" src="https://github.com/user-attachments/assets/65e88d8a-7d8d-4ee6-8b5f-6d562d3b4ca1" />
 
 
 Ответ: `andrewprahlow`
@@ -14,6 +15,7 @@ https://en.wikipedia.org/wiki/Andrew_Prahlow
 
 Prahlow писал музыку к короткометражке GODLIKE про игрока в League of Legends, он указан в описании ролика на YouTube. В первую минуту играют за Riven.
 
+<img width="1456" height="814" alt="image" src="https://github.com/user-attachments/assets/4c4ed7cb-e156-42f7-87db-8f4fe33c5fec" />
 
 
 По лору у Riven приемные родители Asa и Shava Konte: https://wiki.leagueoflegends.com/en-us/Universe:Riven
@@ -31,12 +33,14 @@ Prahlow писал музыку к короткометражке GODLIKE про
 ## 4. Лучший фрукт
 
 
+<img width="1406" height="840" alt="image" src="https://github.com/user-attachments/assets/0a22a80f-4f19-4179-92bd-49ee83524107" />
 
 Ответ: `kumquat`
 
 ## 5. Production Manager Assistant
 
 В биографии у Prahlow есть короткометражка для Покемона. Это POKÉTOON PT18 "Bonding with Kangaskhan", стафф есть на Bulbapedia: https://bulbapedia.bulbagarden.net/wiki/PT18
+<img width="1456" height="827" alt="image" src="https://github.com/user-attachments/assets/3ad1e1fc-4016-47d2-b36c-71160000d9d0" />
 
 
 Ответ: `junaoki`
@@ -61,6 +65,7 @@ Prahlow писал музыку к короткометражке GODLIKE про
 
 В исходнике его блога https://ameblo.jp/aokijun есть поле `bloodtype_text`:
 
+<img width="1548" height="784" alt="image" src="https://github.com/user-attachments/assets/5b6d0db5-ba45-49b7-b544-259639e03b0e" />
 
 
 Ответ: `A`
@@ -69,6 +74,7 @@ Prahlow писал музыку к короткометражке GODLIKE про
 
 Пост 携帯死亡, где он уронил телефон на платформе станции Икэбукуро: https://ameblo.jp/aokijun/entry-10014009422.html
 
+<img width="1512" height="786" alt="image" src="https://github.com/user-attachments/assets/077a2198-1ed4-4607-b044-3992dbbfb722" />
 
 
 На странице стоит 2005-12-10 22:30, а в `datePublished` в коде 2005-12-11T02:30 по японскому времени. Заходит 11 число.
