@@ -76,12 +76,15 @@ template=<esi:include src="/fragments/session-info"/>
 
 Логинюсь под `pwn123`, забираю куку. Дальше в Burp ставлю био-ликер в `/profile` (обязательно как `application/json`, иначе `@import` уедет на инстанс с `%22` в пути):
 
+<img width="1691" height="880" alt="image" src="https://github.com/user-attachments/assets/9127a225-6cf9-45ac-b414-04cfab30ebe2" />
 
 
 Потом шлю `/report` на `http://ATTACKER/x`:
 
+<img width="1531" height="854" alt="image" src="https://github.com/user-attachments/assets/fced1967-b0eb-4f59-8442-5da4b487e15e" />
 
 В логе infra видно, как по символу собирается nonce, дальше автоматом ставится био #2, перезаход и флаг:
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/47d11ba3-60fb-4168-827c-6a91f6e63c00" />
 
 
 
