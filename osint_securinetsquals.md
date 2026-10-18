@@ -15,6 +15,7 @@ text = "created by waterdup45"
 ## itch.io
 
 https://waterdup45.itch.io/parkour
+<img width="1433" height="954" alt="image" src="https://github.com/user-attachments/assets/7e2893f0-9cac-40d8-9cff-0a976d7b4680" />
 
 
 
@@ -22,6 +23,7 @@ https://waterdup45.itch.io/parkour
 
 https://x.com/chiggens67
 
+<img width="1378" height="994" alt="image" src="https://github.com/user-attachments/assets/df2f458f-ce1c-4da8-915b-8ce94e72e9b5" />
 
 
 В видео за окном игры открыт Chrome, и во вкладке Reddit пользователя `Street-Compote-5562`
@@ -29,6 +31,7 @@ https://x.com/chiggens67
 ## Reddit
 
 https://www.reddit.com/user/Street-Compote-5562/
+<img width="1579" height="926" alt="image" src="https://github.com/user-attachments/assets/255d5691-2b6a-4d5a-9524-10d5c380e849" />
 
 
 ### Время
@@ -55,6 +58,7 @@ https://www.google.com/maps/@35.9622757,14.3678539,3a,90y,45h,105t/data=!3m7!1e1
 Твит про спидраны намекает на speedrun.com:
 
 https://www.speedrun.com/users/chiggens67
+<img width="1456" height="830" alt="image" src="https://github.com/user-attachments/assets/d0e88cc3-c243-4400-95d5-1e13b83e6333" />
 
 
 
