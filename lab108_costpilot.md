@@ -8,7 +8,8 @@
 
 Полазил по самому приложению под обычным юзером (Alex Morgan, Business Analyst), посмотрел список расходов.
 
-![Список расходов в CostPilot](images/lab108_01_expenses_list.jpg)
+<img width="1914" height="994" alt="image" src="https://github.com/user-attachments/assets/c4f5775c-f4c9-4ff3-a956-b2951c596243" />
+
 
 Попробовал удалить свою запись и посмотрел запрос в Burp:
 
@@ -18,7 +19,8 @@ DELETE /api/v2/expenses/9570ccc3-c5e2-4c9f-9978-ddb7ee9e10a0 HTTP/1.1
 
 Объект адресуется UUID'ом, его не перебрать. Ответ 200, запись удалилась нормально.
 
-![DELETE через v2 API по UUID](images/lab108_02_delete_v2_uuid.jpg)
+<img width="1734" height="664" alt="image" src="https://github.com/user-attachments/assets/da3ce45d-4060-40a4-9785-6eb9afc61970" />
+
 
 ## Эксплуатация
 
@@ -30,7 +32,8 @@ GET /api/v1/expenses/3 HTTP/1.1
 
 Эндпоинт жив, никакой проверки owner_id на нём нет, он просто отдаёт запись по id, кому бы она ни принадлежала. В ответе чужой расход на $2500 (Consulting Services), и в поле notes лежит флаг с пометкой под NDA.
 
-![IDOR в v1: чужая запись по числовому id с флагом в notes](images/lab108_03_get_v1_idor_flag.jpg)
+<img width="1724" height="860" alt="image" src="https://github.com/user-attachments/assets/5d8dcf27-2915-4074-9fb0-6eb1a1e8718a" />
+
 
 ```
 FLAG{bd3479ff3477735c9cfce4dce9b72056}
