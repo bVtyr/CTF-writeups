@@ -6,27 +6,22 @@
 
 ## Разведка
 
-Прошёлся по функционалу: Dashboard, Playground, API Keys, Models, Usage, Docs, и отдельная вкладка Admin Tools с пометкой RESTRICTED. Боевые эндпоинты вроде /api/v1/chat/completions требуют Authorization: Bearer <api_key>. Проверил, что без валидного ключа ничего не работает, отправил заведомо сломанный ключ в виде SQLi-пейлоада:
+Прошёлся по функционалу: Dashboard, Playground, API Keys, Models, Usage, Docs, и отдельная вкладка Admin Tools с пометкой RESTRICTED. Боевые эндпоинты вроде /api/v1/chat/completions требуют Authorization: Bearer <api_key>.
+
+Сначала отправил обычный запрос на /api/v1/chat/completions без ключа, чтобы посмотреть реакцию. Ожидаемо 401, invalid_api_key.
+
+<img width="1562" height="737" alt="image" src="https://github.com/user-attachments/assets/87c5fa83-36e4-4f20-8c1b-02a5f530a8fe" />
+
+
+## SQL-инъекция и обход авторизации
+
+Вместо ключа подставил в Authorization SQLi-пейлоад:
 
 ```
 Authorization: Bearer ' OR '1'='1
 ```
 
-Получил честный 401, invalid_api_key.
-
-![Первая попытка SQLi в заголовке, честный 401](images/lab413_01_chatcompletions_401.jpg)
-
-То есть просто подставить кавычку в произвольный заголовок мало, проверка ключа где-то отрабатывает нормально. Нужно было найти запрос, который к инъекции чувствителен.
-
-## SQL-инъекция и обход авторизации
-
-Тот же пейлоад попробовал против GET /api/v1/admin/tools/servers (список tool-серверов, тоже защищён Bearer-ключом и требует админ-прав по докам). Тут сработало: 200 OK и полный список серверов, Web Search (MCP), Code Interpreter (custom), Document Retrieval (langchain), Image Generator (MCP), со всеми endpoint'ами и статусами.
-
-![SQLi в Authorization обошла проверку ключа на admin-эндпоинте](images/lab413_02_admin_tools_servers_sqli.jpg)
-
-Похоже, проверка ключа на части эндпоинтов собирает SQL-запрос конкатенацией строки, что-то вроде SELECT * FROM api_keys WHERE key = '<value>', и OR '1'='1 делает условие всегда истинным, подставляя первую попавшуюся запись из таблицы ключей.
-
-Проверил тот же пейлоад на POST /api/v1/chat/completions, на этот раз прошло. В ответе, помимо симулированного ответа модели, бэкенд вернул отладочный блок relay_meta с метаданными о том, под каким ключом ушёл запрос:
+Прошло: 200 OK. В ответе, помимо симулированного ответа модели, бэкенд вернул отладочный блок relay_meta с метаданными о том, под каким ключом ушёл запрос:
 
 ```json
 "relay_meta": {
@@ -39,9 +34,15 @@ Authorization: Bearer ' OR '1'='1
 }
 ```
 
-![Та же SQLi на chat/completions, доступ от имени Platform Admin](images/lab413_03_chatcompletions_admin_sqli.jpg)
+<img width="1737" height="839" alt="image" src="https://github.com/user-attachments/assets/fa9ba5c2-14d0-466b-a568-9c35b20a8181" />
 
-Одна инъекция в заголовке дала доступ от имени key_id 1, Platform Admin, со всеми правами: admin, admin:tools, admin:config, admin:keys.
+
+Одна инъекция в заголовке дала доступ от имени key_id 1, Platform Admin, со всеми правами: admin, admin:tools, admin:config, admin:keys. Проверка ключа собирает SQL-запрос конкатенацией строки, что-то вроде SELECT * FROM api_keys WHERE key = '<value>', и OR '1'='1 делает условие всегда истинным, подставляя первую попавшуюся запись из таблицы ключей.
+
+Тот же ключ работает и на админских эндпоинтах. GET /api/v1/admin/tools/servers с ним отдаёт 200 OK и полный список tool-серверов: Web Search (MCP), Code Interpreter (custom), Document Retrieval (langchain), Image Generator (MCP), со всеми endpoint'ами и статусами.
+
+<img width="1595" height="820" alt="image" src="https://github.com/user-attachments/assets/6932eec8-9dbb-4128-9562-fdeb0057bbb9" />
+
 
 ## От админки к RCE
 
@@ -61,7 +62,8 @@ POST /api/v1/admin/tools/test-connection   [ADMIN:TOOLS REQUIRED]
 }
 ```
 
-![Документация test-connection, custom server_type принимает command/args](images/lab413_04_docs_test_connection.jpg)
+<img width="1280" height="691" alt="image" src="https://github.com/user-attachments/assets/b5354b64-121f-4dab-a466-b53acbe29bdf" />
+
 
 Это прямой путь к RCE. Вместо легитимного бинаря подставляется интерпретатор и своя команда:
 
