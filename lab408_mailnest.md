@@ -15,7 +15,8 @@
 
 Первая проверка, пустой POST без тела, чтобы увидеть формат ошибки:
 
-![Пустой запрос, сервер подсказывает нужные поля](images/lab408_01_empty_request.jpg)
+<img width="1667" height="827" alt="image" src="https://github.com/user-attachments/assets/28278761-9a2c-4482-b676-47a3ce6c0298" />
+
 
 400, "Missing required fields: username, newPassword". Поля известны.
 
@@ -29,7 +30,8 @@
 
 Снова 400, та же ошибка, тело просто не распарсилось как JSON.
 
-![JSON-тело без Content-Type, сервер его не видит](images/lab408_02_json_no_contenttype.jpg)
+<img width="1574" height="689" alt="image" src="https://github.com/user-attachments/assets/d04fd1a6-f280-4486-a7eb-a8aa9119fc4b" />
+
 
 Попытка 2, form-urlencoded, как в старых PHP-формах:
 
@@ -39,11 +41,13 @@ username=admin&newPassword=gazgaz
 
 Опять 400.
 
-![Form-urlencoded тело тоже не подошло](images/lab408_03_form_urlencoded.jpg)
+<img width="1558" height="661" alt="image" src="https://github.com/user-attachments/assets/d11e2013-5932-4a9a-a0a8-46e9cf4799a8" />
+
 
 Попытка 3, тот же JSON, но с заголовком Content-Type: application/json. Дошло, что тело было верным с самого начала, просто сервер не понимал формат без явного content type. Добавил заголовок, и запрос прошёл.
 
-![Content-Type: application/json, сброс пароля прошёл успешно](images/lab408_04_json_success.jpg)
+<img width="1607" height="711" alt="image" src="https://github.com/user-attachments/assets/5bb80555-111c-4f0c-a2e7-6a50b120745e" />
+
 
 200, success true, пароль admin заменён на gazgaz.
 
@@ -51,7 +55,8 @@ username=admin&newPassword=gazgaz
 
 Залогинился под admin/gazgaz, попал в админку MailNest, раздел System Config, доступный только админам. В блоке API & Security в поле System Secret Key открытым текстом лежал флаг.
 
-![Админ-панель MailNest, System Secret Key = флаг](images/lab408_05_admin_panel_flag.jpg)
+<img width="1893" height="904" alt="image" src="https://github.com/user-attachments/assets/ac2f55ce-2991-4bab-8d37-e73ad4d9b99d" />
+
 
 ```
 FLAG{2860e96f59ef9b36c1c390bc36fe16e1}
