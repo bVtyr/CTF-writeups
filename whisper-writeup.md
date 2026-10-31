@@ -17,7 +17,8 @@
 
 Отправляем на `/internal/export` запрос с мусорным `X-Signature` — получаем `401`, но тело ошибки раскрывает точную конструкцию `string_to_sign` и алгоритм подписи, который ожидает сервер.
 
-**screen1**
+<img width="1557" height="765" alt="image" src="https://github.com/user-attachments/assets/59df6d15-312d-4e7d-8f30-44d1df90d0f2" />
+
 
 Сервер сообщает, что канонической строкой является:
 
@@ -40,7 +41,8 @@ METHOD \n PATH \n CANONICAL_QUERY \n HEX_SHA256(body) \n X-Timestamp \n nonce
 }
 ```
 
-**screen2**
+<img width="1555" height="705" alt="image" src="https://github.com/user-attachments/assets/d4d054d7-61d2-4e38-a325-7897351e7114" />
+
 
 `200` и выданный `access_token` (scope `read report:export`) подтверждают сразу две вещи: секрет можно перебирать через регулярные выражения, и его длина ровно **32 символа**.
 
@@ -52,9 +54,10 @@ METHOD \n PATH \n CANONICAL_QUERY \n HEX_SHA256(body) \n X-Timestamp \n nonce
 
 **Burp Intruder** — атака Sniper, одна позиция подставляется в регулярку (`^§§.{31}$`), набор payload'ов = алфавит. Только верный символ возвращает `200`, все остальные — `401`.
 
-**screen4**
+<img width="1885" height="1004" alt="image" src="https://github.com/user-attachments/assets/ffd72da1-1878-4981-ac7e-d73cb40e43d3" />
 
-**screen3**
+<img width="1856" height="904" alt="image" src="https://github.com/user-attachments/assets/b8bef286-523e-4b25-b787-3dfd314b6819" />
+
 
 **Python-автоматизация** — тот же оракул, цикл по 32 позициям и hex-алфавиту:
 
@@ -79,8 +82,8 @@ for i in range(32):
 
 print(f"\n[+] Full secret: {secret}")
 ```
+<img width="800" height="701" alt="image" src="https://github.com/user-attachments/assets/27be1db0-2335-4475-b083-c084ca0a9648" />
 
-**screen5**
 
 Восстановленный секрет:
 
@@ -90,7 +93,8 @@ a864cf4ea9b65cb7e873092ebcf56e9e
 
 Проверяем полным regex с якорями `^a864cf4ea9b65cb7e873092ebcf56e9e$` — сервер возвращает `200`, значит секрет точный:
 
-**screen6**
+<img width="1629" height="729" alt="image" src="https://github.com/user-attachments/assets/23172129-e1ab-44d6-b207-a99c369f88c1" />
+
 
 ## 4. Подделка HMAC-подписи
 
@@ -114,7 +118,7 @@ print("Signature:", signature)
 
 Тело оставляем пустым, поэтому поле `HEX_SHA256(body)` — это SHA-256 от пустой строки. Canonical query тоже пустая.
 
-**screen7**
+<img width="800" height="706" alt="image" src="https://github.com/user-attachments/assets/9f84b1d3-661f-4310-bafb-9da3878a5488" />
 
 ## 5. Экспорт → флаг
 
@@ -132,7 +136,8 @@ Content-Length: 0
 
 Сервер валидирует подпись и возвращает флаг:
 
-**screen8**
+<img width="1597" height="598" alt="image" src="https://github.com/user-attachments/assets/2ab85ef2-2419-419a-b26b-a0c6afb98ab8" />
+
 
 ```json
 {
