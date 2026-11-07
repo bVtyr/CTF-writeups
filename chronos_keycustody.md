@@ -1,19 +1,25 @@
-# Key Custody
+# Chronos CTF — Key Custody
+
+## Разведка
 
 На главной странице смотрим доступный функционал. Его немного: сайт сразу показывает основные эндпоинты, в том числе `/token`, `/public/{asset}` и `/admin/recovery-key`. Наша цель — получить доступ к последнему, но для этого нужна роль `admin`.
 
-![Главная страница и доступные эндпоинты](chronos_keycustody_screenshots/1.png)
+![Главная страница и доступные эндпоинты](screenshots/chronos_keycustody_1.png)
+
+## JWT и поиск ключа
 
 Сначала получаем JWT аналитика через `/token` и декодируем его. В заголовке видим `alg: HS256` и `kid: session`, а в payload — `role: analyst`. На сайте также указано, что ключ проверки подписи выбирается по `kid`. Поэтому предполагаем, что через этот параметр можно заставить сервер использовать другой файл в качестве ключа.
 
-![Декодированный JWT](chronos_keycustody_screenshots/2.png)
+![Декодированный JWT](screenshots/chronos_keycustody_2.png)
 
 Для этого нужен файл на сервере, содержимое которого нам известно. На главной странице есть маршрут `/public/{asset}` для публичных файлов, но листинга нет. Запускаем фаззинг и в итоге находим `brand.txt`, который возвращает `200 OK`. Поиск занял немало времени: название нашлось только после нескольких комбинированных вордлистов, в том числе сгенерированных с помощью ИИ.
 
-![Поиск файлов через Burp Intruder](chronos_keycustody_screenshots/3.png)
+![Поиск файлов через Burp Intruder](screenshots/chronos_keycustody_3.png)
 
 Получаем содержимое `brand.txt` и используем его как секрет для подписи JWT с алгоритмом `HS256`. В заголовке меняем `kid` на `../public/brand.txt`, а в payload — `role` с `analyst` на `admin`.
 
-После этого отправляем запрос на `/admin/recovery-key` с новым токеном в `Authorization: Bearer`. Сервер принимает подпись и возвращает `200 OK` с флагом в поле `recovery_key`.
+## Получение флага
 
-![Успешный запрос к admin recovery key](chronos_keycustody_screenshots/4.png)
+Отправляем запрос на `/admin/recovery-key` с новым токеном в заголовке `Authorization: Bearer`. Сервер принимает подпись и возвращает `200 OK` с флагом в поле `recovery_key`.
+
+![Успешный запрос к admin recovery key](screenshots/chronos_keycustody_4.png)
